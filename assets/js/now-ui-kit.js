@@ -235,3 +235,161 @@ function debounce(func, wait, immediate) {
         if (immediate && !timeout) func.apply(context, args);
     };
 };
+
+
+//Populate user list
+
+jQuery(document).ready(function($) {
+  var sheetId = "1ShPIj68OfdKHluWX2bXGlC5BW8axwtK47TFTLmynZhM";
+  var apiKey = "AIzaSyBJbrne6qbs2d6qjZYA2LWy0PSjdhEenxs";
+  var api = "https://sheets.googleapis.com/v4/spreadsheets/"+sheetId+"/values/A1:Z100?key="+apiKey;
+
+  $.getJSON(api, function(data) {
+
+    // console.log(data);
+    var values = data.values;
+    console.log(values);
+
+    var html_content = "";
+    var imgId = 0;
+    var socials = [
+      {
+        id: 7,
+        name: "envelope",
+        title: "Email"
+      },
+      {
+        id: 8,
+        name: "facebook",
+        title: "facebook"
+      },{
+        id: 9,
+        name: "twitter",
+        title: "twitter"
+      },{
+        id: 10,
+        name: "github",
+        title: "github"
+      },{
+        id: 11,
+        name: "meetup",
+        title: "meetup"
+      },{
+        id: 12,
+        name: "slack",
+        title: "slack"
+      }
+
+    ];
+
+
+    var html_content_top = "";
+    var html_website = "";
+    var html_socials = "";
+    var html_content_bot = "";
+
+    values.shift();
+    values = shuffle(values);
+
+    for (var i = 0; i < values.length; i++) {
+
+        if(!values[i][0]) {
+          break;
+        }
+
+        html_content_top = "";
+        html_website = "";
+        html_socials = "";
+        html_content_bot = "";
+        // if( values[i][5] ) {
+        //   imgId = values[i][5].substr(33);
+        // }
+
+        // var imageLink = "https://drive.google.com/uc?export=view&id="+imgId;
+
+          html_content_top +=
+          "<div class=\"col-md-3\">"+
+                "<div class=\"team-player\">"+
+                    // <img src="./assets/img/avatar.jpg" alt="Thumbnail Image" class="rounded-circle img-fluid img-raised">
+                    "<h3 class=\"title\">"+values[i][1] + " " + values[i][0] +"</h3>"+
+                    "<p class=\"category text-primary\">"+values[i][2]+"</p>";
+                    // <p class="description">You can write here details about one of your team members. You can give more details about what they do. Feel free to add some
+                    //     <a href="#">links</a> for people to be able to follow them outside the site.</p>
+                    // <a href="#pablo" class="btn btn-primary btn-icon btn-round"><i class="fa fa-twitter"></i></a>
+                    // <a href="#pablo" class="btn btn-primary btn-icon btn-round"><i class="fa fa-instagram"></i></a>
+                    // <a href="#pablo" class="btn btn-primary btn-icon btn-round"><i class="fa fa-facebook-square"></i></a>
+
+          // "<div class=\"project_container\">"+
+          //   "<div class=\"project\">"+
+          //     "<div class=\"project_text\" >"+
+          //       "<div class=\"project_title\">"+
+          //         "<h2>"+values[i][0]+"</h2>"+
+          //       "</div>"+
+          //       "<hr>"+
+          //       "<div class=\"project_description\">"+
+          //         "<p>"+values[i][1]+"</p>"+
+          //         "<div class=\"hideLongDescription\"></div>"+
+          //       "</div>"+
+          //     "</div>"+
+          //     "<div class=\"center\">"+
+          //       "<img max-height=\"200\" width=\"100%\" src=\""+imageLink+"\">"+
+          //     "</div>"+
+          //     "<div class=\"website center\">";
+
+
+              // if(values[i][6]) {
+              //   html_website += "<a target=\"_blank\" href=\""+values[i][6]+"\">"+
+              //       "Site Web"+
+              //     "</a>";
+              // }
+              // html_website += "</div>";
+
+              // html_socials += "<div class=\"socialNetworks\">";
+              // for (var j = 0; j < socials.length; j++) {
+              //   if(values[i][socials[j].id]) {
+              //     html_socials += "<div class=\""+socials[j].name+"\" >"+
+              //                       "<a title=\""+socials[j].title+"\"  target=\"_blank\" href=\""+values[i][socials[j].id]+"\">"+
+              //                         "<i class=\"fa fa-"+socials[j].name+"\" aria-hidden=\"true\"></i>"+
+              //                       "</a>"+
+              //                     "</div>";
+              //   }
+              // }
+
+              // html_socials += "</div>";
+
+          html_content_bot += "</div>"+
+                            "</div>";
+
+
+    html_content += html_content_top + html_website + html_socials + html_content_bot;
+    }
+    $("#participants").html(html_content);
+
+    // $(".envelope a").click(function(e){
+    //   e.preventDefault();
+    //   var $temp = $("<input>");
+    //  $("body").append($temp);
+    //  $temp.val($(this).attr("href")).select();
+    //  document.execCommand("copy");
+    //  $temp.remove();
+    // });
+
+
+  });
+
+
+  function shuffle(a) {
+      var j, x, i;
+      for (i = a.length; i; i--) {
+          j = Math.floor(Math.random() * i);
+          x = a[i - 1];
+          a[i - 1] = a[j];
+          a[j] = x;
+      }
+      return a;
+
+  }
+
+
+
+});
