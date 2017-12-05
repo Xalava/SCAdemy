@@ -242,7 +242,7 @@ function debounce(func, wait, immediate) {
 jQuery(document).ready(function($) {
   var sheetId = "1ShPIj68OfdKHluWX2bXGlC5BW8axwtK47TFTLmynZhM";
   var apiKey = "AIzaSyBJbrne6qbs2d6qjZYA2LWy0PSjdhEenxs";
-  var api = "https://sheets.googleapis.com/v4/spreadsheets/"+sheetId+"/values/A1:Z100?key="+apiKey;
+  var api = "https://content-sheets.googleapis.com/v4/spreadsheets/"+sheetId+"/values/A1:Z100?key="+apiKey;
 
   $.getJSON(api, function(data) {
 
@@ -308,11 +308,11 @@ jQuery(document).ready(function($) {
         // var imageLink = "https://drive.google.com/uc?export=view&id="+imgId;
 
           html_content_top +=
-          "<div class=\"col-md-3\">"+
-                "<div class=\"team-player\">"+
+          "<div class=\"col-md-3 \">"+
+                "<div class=\"\">"+
                     // <img src="./assets/img/avatar.jpg" alt="Thumbnail Image" class="rounded-circle img-fluid img-raised">
-                    "<h3 class=\"title\">"+values[i][1] + " " + values[i][0] +"</h3>"+
-                    "<p class=\"category text-primary\">"+values[i][2]+"</p>";
+                    "<h4 class=\"title\">"+values[i][1] + " " + values[i][0] +"</h4>"+
+                    "<p class=\"category \">"+values[i][2]+"</p>";
                     // <p class="description">You can write here details about one of your team members. You can give more details about what they do. Feel free to add some
                     //     <a href="#">links</a> for people to be able to follow them outside the site.</p>
                     // <a href="#pablo" class="btn btn-primary btn-icon btn-round"><i class="fa fa-twitter"></i></a>
